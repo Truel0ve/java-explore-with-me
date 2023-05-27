@@ -12,6 +12,7 @@ import ru.practicum.utility.TimestampParser;
 import ru.practicum.utility.ViewStatsMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -55,6 +56,6 @@ public class StatServiceImpl implements StatService {
     private List<ViewStatsDto> mapViewStatsList(List<ViewStats> viewStats) {
         return viewStats.stream()
                 .map(ViewStatsMapper::toDto)
-                .toList();
+                .collect(Collectors.toList());
     }
 }
