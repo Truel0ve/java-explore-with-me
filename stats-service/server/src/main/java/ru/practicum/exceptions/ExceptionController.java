@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.util.Objects;
-
 @RestControllerAdvice(value = "ru.practicum")
 @Slf4j
 public class ExceptionController {
@@ -20,17 +18,7 @@ public class ExceptionController {
             MethodArgumentTypeMismatchException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleBadRequestException(final Exception e) {
-        String message;
-        String defaultMessage = "Invalid data format: ";
-        if (e instanceof BindException) {
-            message = defaultMessage + Objects.requireNonNull(((BindException) e).getFieldError()).getField();
-        } else if (e.getClass().equals(HttpMessageNotReadableException.class)) {
-            message = defaultMessage + ((HttpMessageNotReadableException) e).getMostSpecificCause();
-        } else if (e.getClass().equals(MethodArgumentTypeMismatchException.class)) {
-            message = defaultMessage + "request data";
-        } else {
-            message = e.getMessage();
-        }
+        String message = "Invalid data format. Please check the input and try again.";
         log.warn(message, e);
         return new ErrorResponse(message);
     }
@@ -45,14 +33,8 @@ public class ExceptionController {
     @ExceptionHandler({DataIntegrityViolationException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleAlreadyExistsException(final Exception e) {
-        String message;
-        if (e.getClass().equals(DataIntegrityViolationException.class)) {
-            message = e.getCause().getLocalizedMessage();
-        } else {
-            message = e.getMessage();
-        }
-        log.error(e.getMessage(), e);
-        return new ErrorResponse(message);
+        log.warn(e.getMessage(), e);
+        return new ErrorResponse(e.getMessage());
     }
 
     @ExceptionHandler({Throwable.class, WrongStateArgumentException.class})

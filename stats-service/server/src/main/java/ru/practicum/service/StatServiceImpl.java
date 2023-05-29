@@ -11,6 +11,7 @@ import ru.practicum.utility.EndpointHitMapper;
 import ru.practicum.utility.TimestampParser;
 import ru.practicum.utility.ViewStatsMapper;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,28 +29,16 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public List<ViewStatsDto> getViewStats(String start, String end, String[] uris, boolean unique) {
-        if (uris == null) {
-            if (unique) {
-                return mapViewStatsList(statRepository.getViewStatsWithIp(
-                        TimestampParser.toTimestamp(start),
-                        TimestampParser.toTimestamp(end)));
-            } else {
-                return mapViewStatsList(statRepository.getViewStats(
-                        TimestampParser.toTimestamp(start),
-                        TimestampParser.toTimestamp(end)));
-            }
+        if (unique) {
+            return mapViewStatsList(statRepository.getViewStatsWithUrisAndIp(
+                    TimestampParser.toTimestamp(start),
+                    TimestampParser.toTimestamp(end),
+                    getUrisList(uris)));
         } else {
-            if (unique) {
-                return mapViewStatsList(statRepository.getViewStatsWithUrisAndIp(
-                        TimestampParser.toTimestamp(start),
-                        TimestampParser.toTimestamp(end),
-                        uris));
-            } else {
-                return mapViewStatsList(statRepository.getViewStatsWithUris(
-                        TimestampParser.toTimestamp(start),
-                        TimestampParser.toTimestamp(end),
-                        uris));
-            }
+            return mapViewStatsList(statRepository.getViewStatsWithUris(
+                    TimestampParser.toTimestamp(start),
+                    TimestampParser.toTimestamp(end),
+                    getUrisList(uris)));
         }
     }
 
@@ -57,5 +46,14 @@ public class StatServiceImpl implements StatService {
         return viewStats.stream()
                 .map(ViewStatsMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @SuppressWarnings("all")
+    private List<String> getUrisList(String[] uris) {
+        if (uris == null || uris.length == 0) {
+            return null;
+        } else {
+            return Arrays.asList(uris);
+        }
     }
 }

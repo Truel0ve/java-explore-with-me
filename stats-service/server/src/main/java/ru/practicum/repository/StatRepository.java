@@ -13,30 +13,16 @@ public interface StatRepository extends JpaRepository<EndpointHit, Long> {
     @Query("SELECT NEW ru.practicum.model.ViewStats(e.app, e.uri, COUNT(e.uri)) " +
             "FROM EndpointHit e " +
             "WHERE e.timestamp BETWEEN ?1 AND ?2 " +
+            "AND (e.uri IN ?3 OR ?3 IS NULL) " +
             "GROUP BY e.app, e.uri " +
             "ORDER BY COUNT(e.uri) DESC")
-    List<ViewStats> getViewStats(Timestamp start, Timestamp end);
+    List<ViewStats> getViewStatsWithUris(Timestamp start, Timestamp end, List<String> uris);
 
     @Query("SELECT NEW ru.practicum.model.ViewStats(e.app, e.uri, COUNT(DISTINCT e.ip)) " +
             "FROM EndpointHit e " +
             "WHERE e.timestamp BETWEEN ?1 AND ?2 " +
+            "AND (e.uri IN ?3 OR ?3 IS NULL) " +
             "GROUP BY e.app, e.uri " +
             "ORDER BY COUNT(DISTINCT e.ip) DESC")
-    List<ViewStats> getViewStatsWithIp(Timestamp start, Timestamp end);
-
-    @Query("SELECT NEW ru.practicum.model.ViewStats(e.app, e.uri, COUNT(e.uri)) " +
-            "FROM EndpointHit e " +
-            "WHERE e.uri IN ?3 " +
-            "AND e.timestamp BETWEEN ?1 AND ?2 " +
-            "GROUP BY e.app, e.uri " +
-            "ORDER BY COUNT(e.uri) DESC")
-    List<ViewStats> getViewStatsWithUris(Timestamp start, Timestamp end, String[] uris);
-
-    @Query("SELECT NEW ru.practicum.model.ViewStats(e.app, e.uri, COUNT(DISTINCT e.ip)) " +
-            "FROM EndpointHit e " +
-            "WHERE e.uri IN ?3 " +
-            "AND e.timestamp BETWEEN ?1 AND ?2 " +
-            "GROUP BY e.app, e.uri " +
-            "ORDER BY COUNT(DISTINCT e.ip) DESC")
-    List<ViewStats> getViewStatsWithUrisAndIp(Timestamp start, Timestamp end, String[] uris);
+    List<ViewStats> getViewStatsWithUrisAndIp(Timestamp start, Timestamp end, List<String> uris);
 }
