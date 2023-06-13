@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 
 @UtilityClass
 public class EndpointMapper {
-    private final String APP = "ewm-service";
+    private final String app = "ewm-service";
 
     public EndpointHitDto toEndpointHitDto(HttpServletRequest request) {
         EndpointHitDto endpointHit = new EndpointHitDto();
-        endpointHit.setApp(APP);
+        endpointHit.setApp(app);
         endpointHit.setUri(request.getRequestURL().toString());
         endpointHit.setIp(request.getRemoteAddr());
         endpointHit.setTimestamp(DateTimeParser.toString(LocalDateTime.now()));

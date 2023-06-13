@@ -92,7 +92,7 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
     }
 
     private void validateEventIsPublished(Event event) {
-        if(!event.getState().equals(EventState.PUBLISHED)) {
+        if (!event.getState().equals(EventState.PUBLISHED)) {
             throw new ValidationException("Event has not published", new IllegalArgumentException());
         }
     }

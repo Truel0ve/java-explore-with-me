@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 public interface AdminUserService {
+
     List<UserDto> getUsers(Set<Long> users, Integer from, Integer size);
+
     UserDto postNewUser(UserDto user);
+
     void deleteUser(Long userId);
 }
