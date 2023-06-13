@@ -10,11 +10,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.servlet.ServletException;
+import javax.validation.ConstraintViolationException;
+
 @RestControllerAdvice(value = "ru.practicum")
 @Slf4j
 public class ExceptionController {
 
-    @ExceptionHandler({ValidationException.class, BindException.class, HttpMessageNotReadableException.class,
+    @ExceptionHandler({
+            WrongStateArgumentException.class,
+            BindException.class,
+            ConstraintViolationException.class,
+            HttpMessageNotReadableException.class,
+            ServletException.class,
             MethodArgumentTypeMismatchException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleBadRequestException(final Exception e) {
@@ -37,7 +45,7 @@ public class ExceptionController {
         return new ErrorResponse(e.getMessage());
     }
 
-    @ExceptionHandler({Throwable.class, WrongStateArgumentException.class})
+    @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleThrowable(final Throwable e) {
         log.warn(e.getMessage(), e);

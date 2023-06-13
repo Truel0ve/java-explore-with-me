@@ -14,7 +14,7 @@ public class EndpointMapper {
     public EndpointHitDto toEndpointHitDto(HttpServletRequest request) {
         EndpointHitDto endpointHit = new EndpointHitDto();
         endpointHit.setApp(app);
-        endpointHit.setUri(request.getRequestURL().toString());
+        endpointHit.setUri(request.getRequestURI());
         endpointHit.setIp(request.getRemoteAddr());
         endpointHit.setTimestamp(DateTimeParser.toString(LocalDateTime.now()));
         return endpointHit;

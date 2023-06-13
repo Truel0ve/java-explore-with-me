@@ -33,14 +33,14 @@ public class StatsManager {
     public List<ViewStatsDto> getViewStats(Set<Long> eventIds) {
         return statClient.getViewStats(
                 "2023-01-01 00:00:00",
-                DateTimeParser.toString(LocalDateTime.now().plusSeconds(1)),
+                DateTimeParser.toString(LocalDateTime.now()),
                 getUris(eventIds),
                 true).getBody();
     }
 
     private String[] getUris(Set<Long> eventIds) {
         List<String> urisList = new ArrayList<>(eventIds.size());
-        String baseUrl = "http://localhost:8080/events/";
+        String baseUrl = "/events/";
         for (Long eventId : eventIds) {
             urisList.add(baseUrl + eventId);
         }

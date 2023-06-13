@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.EndpointHitDto;
 import ru.practicum.ViewStatsDto;
+import ru.practicum.exceptions.WrongStateArgumentException;
 import ru.practicum.model.ViewStats;
 import ru.practicum.repository.StatRepository;
 import ru.practicum.utility.EndpointHitMapper;
 import ru.practicum.utility.TimestampParser;
 import ru.practicum.utility.ViewStatsMapper;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,16 +31,13 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public List<ViewStatsDto> getViewStats(String start, String end, String[] uris, boolean unique) {
+        Timestamp timestampStart = TimestampParser.toTimestamp(start);
+        Timestamp timestampEnd = TimestampParser.toTimestamp(end);
+        validateStartAndEnd(timestampStart, timestampEnd);
         if (unique) {
-            return mapViewStatsList(statRepository.getViewStatsWithUrisAndIp(
-                    TimestampParser.toTimestamp(start),
-                    TimestampParser.toTimestamp(end),
-                    getUrisList(uris)));
+            return mapViewStatsList(statRepository.getViewStatsWithUrisAndIp(timestampStart, timestampEnd, getUrisList(uris)));
         } else {
-            return mapViewStatsList(statRepository.getViewStatsWithUris(
-                    TimestampParser.toTimestamp(start),
-                    TimestampParser.toTimestamp(end),
-                    getUrisList(uris)));
+            return mapViewStatsList(statRepository.getViewStatsWithUris(timestampStart, timestampEnd, getUrisList(uris)));
         }
     }
 
@@ -54,6 +53,12 @@ public class StatServiceImpl implements StatService {
             return null;
         } else {
             return Arrays.asList(uris);
+        }
+    }
+
+    private void validateStartAndEnd(Timestamp start, Timestamp end) {
+        if (start.after(end)) {
+            throw new WrongStateArgumentException("The start date cannot be after end date");
         }
     }
 }
