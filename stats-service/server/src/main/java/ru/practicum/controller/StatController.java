@@ -8,6 +8,7 @@ import ru.practicum.service.StatService;
 import ru.practicum.ViewStatsDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,12 @@ public class StatController {
 
     @GetMapping(value = "/stats")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<ViewStatsDto> getStats(@RequestParam String start,
-                                       @RequestParam String end,
+    public List<ViewStatsDto> getStats(@RequestParam
+                                       @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$")
+                                       String start,
+                                       @RequestParam
+                                       @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$")
+                                       String end,
                                        @RequestParam(required = false) String[] uris,
                                        @RequestParam(required = false, defaultValue = "false") boolean unique) {
         return statService.getViewStats(start, end, uris, unique);

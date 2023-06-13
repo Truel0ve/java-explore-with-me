@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class StatClient {
-    private final WebClient client = WebClient.create("http://localhost:9090");
+    private final WebClient client = WebClient.create("http://stats-service:9090");
 
     public void postEndpointHit(EndpointHitDto endpointHitDto) {
         client
