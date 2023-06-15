@@ -12,6 +12,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import javax.servlet.ServletException;
 import javax.validation.ConstraintViolationException;
+import java.util.List;
 
 @RestControllerAdvice(value = "ru.practicum")
 @Slf4j
@@ -25,30 +26,41 @@ public class ExceptionController {
             ServletException.class,
             MethodArgumentTypeMismatchException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleBadRequestException(final Exception e) {
-        String message = "Invalid data format. Please check the input and try again.";
-        log.warn(message, e);
-        return new ErrorResponse(message);
+    public ApiError handleBadRequestException(final Exception e) {
+        log.warn(e.getMessage(), e);
+        return new ApiError(HttpStatus.BAD_REQUEST.toString(),
+                "Incorrectly made request.",
+                e.getMessage(),
+                List.of(e.getClass().getName()));
     }
 
     @ExceptionHandler({NullPointerException.class, ArgumentNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNotFoundException(final Exception e) {
+    public ApiError handleNotFoundException(final Exception e) {
         log.warn(e.getMessage(), e);
-        return new ErrorResponse(e.getMessage());
+        return new ApiError(HttpStatus.NOT_FOUND.toString(),
+                "The required object was not found.",
+                e.getMessage(),
+                List.of(e.getClass().getName()));
     }
 
-    @ExceptionHandler({DataIntegrityViolationException.class})
+    @ExceptionHandler({DataIntegrityViolationException.class, ValidationException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleAlreadyExistsException(final Exception e) {
+    public ApiError handleAlreadyExistsException(final Exception e) {
         log.warn(e.getMessage(), e);
-        return new ErrorResponse(e.getMessage());
+        return new ApiError(HttpStatus.CONFLICT.toString(),
+                "Integrity constraint has been violated.",
+                e.getMessage(),
+                List.of(e.getClass().getName()));
     }
 
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleThrowable(final Throwable e) {
+    public ApiError handleThrowable(final Throwable e) {
         log.warn(e.getMessage(), e);
-        return new ErrorResponse(e.getMessage());
+        return new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+                "INTERNAL_SERVER_ERROR.",
+                e.getMessage(),
+                List.of(e.getClass().getName(), e.getCause().toString()));
     }
 }
