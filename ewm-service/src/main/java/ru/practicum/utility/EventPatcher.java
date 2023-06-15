@@ -4,14 +4,16 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
-import ru.practicum.dto.event_dto.EventFullDto;
-import ru.practicum.dto.event_dto.UpdateEventRequest;
+import ru.practicum.ViewStatsDto;
+import ru.practicum.dto.event.EventFullDto;
+import ru.practicum.dto.event.UpdateEventRequest;
 import ru.practicum.models.event.Event;
 import ru.practicum.repositories.category.CategoryRepository;
 import ru.practicum.repositories.event.EventRepository;
 import ru.practicum.utility.mapper.EventMapper;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -39,7 +41,8 @@ public class EventPatcher {
                 settedEvent.getRequestModeration(),
                 settedEvent.getState());
         EventFullDto eventFullDto = EventMapper.toEventFullDto(eventRepository.getEventById(settedEvent.getId()));
-        eventFullDto.setViews(statsManager.getViewsCount(settedEvent.getId(), statsManager.getViewStats(Set.of(settedEvent.getId()))));
+        List<ViewStatsDto> viewStatsDtoList = statsManager.getViewStats(Set.of(settedEvent.getId()));
+        eventFullDto.setViews(statsManager.getViewsCount(settedEvent.getId(), viewStatsDtoList));
         return eventFullDto;
     }
 

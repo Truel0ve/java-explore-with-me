@@ -1,12 +1,12 @@
 package ru.practicum.utility.mapper;
 
 import lombok.experimental.UtilityClass;
-import ru.practicum.dto.event_dto.EventDto;
-import ru.practicum.dto.event_dto.EventFullDto;
-import ru.practicum.dto.event_dto.EventShortDto;
+import ru.practicum.dto.event.EventDto;
+import ru.practicum.dto.event.EventFullDto;
+import ru.practicum.dto.event.EventShortDto;
 import ru.practicum.models.event.Event;
-import ru.practicum.models.participation_request.ParticipationRequest;
-import ru.practicum.models.participation_request.ParticipationRequestStatus;
+import ru.practicum.models.partrequest.ParticipationRequest;
+import ru.practicum.models.partrequest.ParticipationRequestStatus;
 import ru.practicum.utility.EventDateValidator;
 import ru.practicum.utility.DateTimeParser;
 

@@ -2,6 +2,7 @@ package ru.practicum.utility;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import ru.practicum.EndpointHitDto;
 import ru.practicum.StatClient;
 import ru.practicum.ViewStatsDto;
 
@@ -13,7 +14,11 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class StatsManager {
-    private final StatClient statClient;
+    private final StatClient statClient = new StatClient("http://stats-service:9090");
+
+    public void postHit(EndpointHitDto endpointHitDto) {
+        statClient.postEndpointHit(endpointHitDto);
+    }
 
     public Long getViewsCount(Long eventId, List<ViewStatsDto> viewStatsList) {
         if (viewStatsList != null && !viewStatsList.isEmpty()) {

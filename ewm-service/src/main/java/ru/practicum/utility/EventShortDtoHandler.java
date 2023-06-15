@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.practicum.ViewStatsDto;
-import ru.practicum.dto.event_dto.EventShortDto;
+import ru.practicum.dto.event.EventShortDto;
 import ru.practicum.repositories.event.EventRepository;
 import ru.practicum.utility.mapper.EventMapper;
 

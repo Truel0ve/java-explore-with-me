@@ -1,8 +1,8 @@
 package ru.practicum.utility.mapper;
 
 import lombok.experimental.UtilityClass;
-import ru.practicum.dto.participation_request_dto.ParticipationRequestDto;
-import ru.practicum.models.participation_request.ParticipationRequest;
+import ru.practicum.dto.partrequest.ParticipationRequestDto;
+import ru.practicum.models.partrequest.ParticipationRequest;
 import ru.practicum.utility.DateTimeParser;
 
 @UtilityClass

@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import ru.practicum.models.compilation.Compilation;
 import ru.practicum.models.location.Location;
 import ru.practicum.models.category.Category;
-import ru.practicum.models.participation_request.ParticipationRequest;
+import ru.practicum.models.partrequest.ParticipationRequest;
 import ru.practicum.models.user.User;
 
 import javax.persistence.*;

@@ -2,7 +2,7 @@ package ru.practicum.utility;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.EnumUtils;
-import ru.practicum.dto.event_dto.UpdateEventRequest;
+import ru.practicum.dto.event.UpdateEventRequest;
 import ru.practicum.exceptions.ValidationException;
 import ru.practicum.exceptions.WrongStateArgumentException;
 import ru.practicum.models.event.Event;
