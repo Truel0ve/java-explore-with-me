@@ -10,7 +10,7 @@
 			"name": "Data preparation",
 			"item": [
 				{
-					"name": "Добавить 1-го (134) пользователя",
+					"name": "Добавить 1-го (136) пользователя",
 					"event": [
 						{
 							"listen": "test",
@@ -30,10 +30,10 @@
 									"    pm.expect(target).to.have.property('rating');\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Поле 'id' должно иметь значение \", function () {\r",
+									"pm.test(\"Поле 'id' должно иметь значение 136\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be 134').to.eql(134);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be 136').to.eql(136);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Поле 'rating' должно иметь значение 0\", function () {\r",
@@ -77,7 +77,7 @@
 					"response": []
 				},
 				{
-					"name": "Добавить 2-го (135) пользователя",
+					"name": "Добавить 2-го (137) пользователя",
 					"event": [
 						{
 							"listen": "test",
@@ -97,10 +97,10 @@
 									"    pm.expect(target).to.have.property('rating');\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Поле 'id' должно иметь значение 135\", function () {\r",
+									"pm.test(\"Поле 'id' должно иметь значение 137\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be 135').to.eql(135);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be 137').to.eql(137);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Поле 'rating' должно иметь значение 0\", function () {\r",
@@ -141,7 +141,7 @@
 					"response": []
 				},
 				{
-					"name": "Добавить 3-го (136) пользователя",
+					"name": "Добавить 3-го (138) пользователя",
 					"event": [
 						{
 							"listen": "test",
@@ -161,10 +161,10 @@
 									"    pm.expect(target).to.have.property('rating');\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Поле 'id' должно иметь значение 136\", function () {\r",
+									"pm.test(\"Поле 'id' должно иметь значение 138\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be 136').to.eql(136);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be 138').to.eql(138);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Поле 'rating' должно иметь значение 0\", function () {\r",
@@ -205,7 +205,7 @@
 					"response": []
 				},
 				{
-					"name": "Добавить 1-е (103) событие пользователем id=1 (134)",
+					"name": "Добавить 1-е (106) событие пользователем id=1 (136)",
 					"event": [
 						{
 							"listen": "test",
@@ -259,7 +259,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								}
 							]
 						}
@@ -267,7 +267,7 @@
 					"response": []
 				},
 				{
-					"name": "Добавить 2-е (104) событие пользователем id=2 (135)",
+					"name": "Добавить 2-е (107) событие пользователем id=2 (137)",
 					"event": [
 						{
 							"listen": "test",
@@ -321,7 +321,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								}
 							]
 						}
@@ -329,7 +329,7 @@
 					"response": []
 				},
 				{
-					"name": "Добавить 3-е (105) событие пользователем id=2 (136) с модерацией участия",
+					"name": "Добавить 3-е (108) событие пользователем id=2 (137) с модерацией участия",
 					"event": [
 						{
 							"listen": "test",
@@ -383,7 +383,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								}
 							]
 						}
@@ -391,7 +391,7 @@
 					"response": []
 				},
 				{
-					"name": "Опубликовать 1-е (103) событие",
+					"name": "Опубликовать 1-е (106) событие",
 					"event": [
 						{
 							"listen": "test",
@@ -445,7 +445,7 @@
 							"variable": [
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -453,7 +453,7 @@
 					"response": []
 				},
 				{
-					"name": "Опубликовать 2-е (104) событие",
+					"name": "Опубликовать 2-е (107) событие",
 					"event": [
 						{
 							"listen": "test",
@@ -507,7 +507,7 @@
 							"variable": [
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -515,7 +515,7 @@
 					"response": []
 				},
 				{
-					"name": "Опубликовать 3-е (105) событие",
+					"name": "Опубликовать 3-е (108) событие",
 					"event": [
 						{
 							"listen": "test",
@@ -569,7 +569,7 @@
 							"variable": [
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							]
 						}
@@ -577,7 +577,7 @@
 					"response": []
 				},
 				{
-					"name": "Одобренный запрос на участие в 1-м (103) событии пользователем id=2 (135)",
+					"name": "Одобренный запрос на участие в 1-м (106) событии пользователем id=2 (137)",
 					"event": [
 						{
 							"listen": "test",
@@ -608,7 +608,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/:userId/requests?eventId=103",
+							"raw": "http://localhost:8080/users/:userId/requests?eventId=106",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -622,13 +622,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								}
 							]
 						}
@@ -636,7 +636,7 @@
 					"response": []
 				},
 				{
-					"name": "Одобренный запрос на участие в 1-м (103) событии пользователем id=3 (136)",
+					"name": "Одобренный запрос на участие в 1-м (106) событии пользователем id=3 (138)",
 					"event": [
 						{
 							"listen": "test",
@@ -667,7 +667,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/:userId/requests?eventId=103",
+							"raw": "http://localhost:8080/users/:userId/requests?eventId=106",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -681,7 +681,66 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "138"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Одобренный запрос на участие во 2-м (107) событии пользователем id=1 (136)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ответ должен содержать поле: status\", function () {\r",
+									"    const target = pm.response.json();\r",
+									"    pm.expect(target).to.have.property('status');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Поле 'status' должно иметь значение 'CONFIRMED'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/:userId/requests?eventId=107",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "107"
 								}
 							],
 							"variable": [
@@ -695,7 +754,7 @@
 					"response": []
 				},
 				{
-					"name": "Одобренный запрос на участие во 2-м (104) событии пользователем id=1 (134)",
+					"name": "Одобренный запрос на участие во 2-м (107) событии пользователем id=3 (138)",
 					"event": [
 						{
 							"listen": "test",
@@ -726,7 +785,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/:userId/requests?eventId=104",
+							"raw": "http://localhost:8080/users/:userId/requests?eventId=107",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -740,13 +799,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "138"
 								}
 							]
 						}
@@ -754,66 +813,7 @@
 					"response": []
 				},
 				{
-					"name": "Одобренный запрос на участие во 2-м (104) событии пользователем id=3 (136)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function() {\r",
-									"    pm.response.to.have.status(201);\r",
-									"    pm.response.to.be.withBody;\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Ответ должен содержать поле: status\", function () {\r",
-									"    const target = pm.response.json();\r",
-									"    pm.expect(target).to.have.property('status');\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Поле 'status' должно иметь значение 'CONFIRMED'\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('status');\r",
-									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/:userId/requests?eventId=104",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								":userId",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "eventId",
-									"value": "104"
-								}
-							],
-							"variable": [
-								{
-									"key": "userId",
-									"value": "136"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Ожидающий запрос на участие в 3-м (105) событии пользователем id=3 (136)",
+					"name": "Ожидающий запрос на участие в 3-м (108) событии пользователем id=3 (138)",
 					"event": [
 						{
 							"listen": "test",
@@ -844,7 +844,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/:userId/requests?eventId=105",
+							"raw": "http://localhost:8080/users/:userId/requests?eventId=108",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -858,13 +858,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								}
 							]
 						}
@@ -889,9 +889,9 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество пользователей должно быть 134\", function () {\r",
+									"pm.test(\"Количество пользователей должно быть 136\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 134').to.eql(134);\r",
+									"    pm.expect(jsonData.length, 'List length must be 136').to.eql(136);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -935,9 +935,9 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество событий должно быть 105\", function () {\r",
+									"pm.test(\"Количество событий должно быть 108\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 105').to.eql(105);\r",
+									"    pm.expect(jsonData.length, 'List length must be 108').to.eql(108);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1011,11 +1011,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -1065,11 +1065,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								},
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							]
 						}
@@ -1077,7 +1077,7 @@
 					"response": []
 				},
 				{
-					"name": "Поставить лайк 1-му (103) событию пользователем id=2 (135) без параметра запроса",
+					"name": "Поставить лайк 1-му (106) событию пользователем id=2 (137) без параметра запроса",
 					"event": [
 						{
 							"listen": "test",
@@ -1138,11 +1138,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -1186,11 +1186,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -1198,7 +1198,7 @@
 					"response": []
 				},
 				{
-					"name": "Поставить лайк 1-му (103) событию пользователем id=3 (136) с параметром запроса",
+					"name": "Поставить лайк 1-му (106) событию пользователем id=3 (138) с параметром запроса",
 					"event": [
 						{
 							"listen": "test",
@@ -1265,11 +1265,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -1277,7 +1277,7 @@
 					"response": []
 				},
 				{
-					"name": "Поставить дизлайк 2-му (104) событию пользователем id=1 (134)",
+					"name": "Поставить дизлайк 2-му (107) событию пользователем id=1 (136)",
 					"event": [
 						{
 							"listen": "test",
@@ -1344,11 +1344,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								},
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -1356,7 +1356,7 @@
 					"response": []
 				},
 				{
-					"name": "Поставить дизлайк 2-му (104) событию пользователем id=3 (136)",
+					"name": "Поставить дизлайк 2-му (107) событию пользователем id=3 (138)",
 					"event": [
 						{
 							"listen": "test",
@@ -1423,11 +1423,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								},
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -1447,9 +1447,9 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество пользователей должно быть 134\", function () {\r",
+									"pm.test(\"Количество пользователей должно быть 136\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 134').to.eql(134);\r",
+									"    pm.expect(jsonData.length, 'List length must be 136').to.eql(136);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1493,14 +1493,14 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество пользователей должно быть 134\", function () {\r",
+									"pm.test(\"Количество пользователей должно быть 136\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 134').to.eql(134);\r",
+									"    pm.expect(jsonData.length, 'List length must be 136').to.eql(136);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Рейтинг пользователей должен учитывать оценки\", function () {\r",
 									"    const target = pm.response.json();\r",
-									"    pm.expect(target[target.length-134].rating).to.equal(2);\r",
+									"    pm.expect(target[target.length-136].rating).to.equal(2);\r",
 									"    pm.expect(target[target.length-1].rating).to.equal(-2);\r",
 									"});"
 								],
@@ -1549,14 +1549,14 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество пользователей должно быть 134\", function () {\r",
+									"pm.test(\"Количество пользователей должно быть 136\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 134').to.eql(134);\r",
+									"    pm.expect(jsonData.length, 'List length must be 136').to.eql(136);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Рейтинг пользователей должен учитывать оценки\", function () {\r",
 									"    const target = pm.response.json();\r",
-									"    pm.expect(target[target.length-134].rating).to.equal(-2);\r",
+									"    pm.expect(target[target.length-136].rating).to.equal(-2);\r",
 									"    pm.expect(target[target.length-1].rating).to.equal(2);\r",
 									"});"
 								],
@@ -1605,9 +1605,9 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество событий должно быть 105\", function () {\r",
+									"pm.test(\"Количество событий должно быть 108\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 105').to.eql(105);\r",
+									"    pm.expect(jsonData.length, 'List length must be 108').to.eql(108);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1651,14 +1651,14 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество событий должно быть 105\", function () {\r",
+									"pm.test(\"Количество событий должно быть 108\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 105').to.eql(105);\r",
+									"    pm.expect(jsonData.length, 'List length must be 108').to.eql(108);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Рейтинг событий должен учитывать оценки\", function () {\r",
 									"    const target = pm.response.json();\r",
-									"    pm.expect(target[target.length-105].rating).to.equal(2);\r",
+									"    pm.expect(target[target.length-108].rating).to.equal(2);\r",
 									"    pm.expect(target[target.length-1].rating).to.equal(-2);\r",
 									"});"
 								],
@@ -1707,14 +1707,14 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество событий должно быть 105\", function () {\r",
+									"pm.test(\"Количество событий должно быть 108\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 105').to.eql(105);\r",
+									"    pm.expect(jsonData.length, 'List length must be 108').to.eql(108);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Рейтинг событий должен учитывать оценки\", function () {\r",
 									"    const target = pm.response.json();\r",
-									"    pm.expect(target[target.length-105].rating).to.equal(-2);\r",
+									"    pm.expect(target[target.length-108].rating).to.equal(-2);\r",
 									"    pm.expect(target[target.length-1].rating).to.equal(2);\r",
 									"});"
 								],
@@ -1751,7 +1751,7 @@
 					"response": []
 				},
 				{
-					"name": "Изменить оценку на лайк 2-му (104) событию пользователем id=3 (136)",
+					"name": "Изменить оценку на лайк 2-му (107) событию пользователем id=3 (138)",
 					"event": [
 						{
 							"listen": "test",
@@ -1818,11 +1818,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								},
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -1842,14 +1842,14 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество пользователей должно быть 134\", function () {\r",
+									"pm.test(\"Количество пользователей должно быть 136\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 134').to.eql(134);\r",
+									"    pm.expect(jsonData.length, 'List length must be 136').to.eql(136);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Рейтинг пользователей должен учитывать оценки\", function () {\r",
 									"    const target = pm.response.json();\r",
-									"    pm.expect(target[target.length-134].rating).to.equal(2);\r",
+									"    pm.expect(target[target.length-136].rating).to.equal(2);\r",
 									"    pm.expect(target[target.length-1].rating).to.equal(0);\r",
 									"});"
 								],
@@ -1898,14 +1898,14 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество событий должно быть 105\", function () {\r",
+									"pm.test(\"Количество событий должно быть 108\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 105').to.eql(105);\r",
+									"    pm.expect(jsonData.length, 'List length must be 108').to.eql(108);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Рейтинг событий должен учитывать оценки\", function () {\r",
 									"    const target = pm.response.json();\r",
-									"    pm.expect(target[target.length-105].rating).to.equal(2);\r",
+									"    pm.expect(target[target.length-108].rating).to.equal(2);\r",
 									"    pm.expect(target[target.length-1].rating).to.equal(0);\r",
 									"});"
 								],
@@ -1942,7 +1942,7 @@
 					"response": []
 				},
 				{
-					"name": "Удалить оценку 2-му (104) событию пользователем id=3 (136)",
+					"name": "Удалить оценку 2-му (107) событию пользователем id=3 (138)",
 					"event": [
 						{
 							"listen": "test",
@@ -1976,11 +1976,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								},
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -2000,14 +2000,14 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество пользователей должно быть 134\", function () {\r",
+									"pm.test(\"Количество пользователей должно быть 136\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 134').to.eql(134);\r",
+									"    pm.expect(jsonData.length, 'List length must be 136').to.eql(136);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Рейтинг пользователей должен учитывать оценки\", function () {\r",
 									"    const target = pm.response.json();\r",
-									"    pm.expect(target[target.length-134].rating).to.equal(2);\r",
+									"    pm.expect(target[target.length-136].rating).to.equal(2);\r",
 									"    pm.expect(target[target.length-1].rating).to.equal(-1);\r",
 									"});"
 								],
@@ -2056,14 +2056,14 @@
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Количество событий должно быть 105\", function () {\r",
+									"pm.test(\"Количество событий должно быть 108\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length, 'List length must be 105').to.eql(105);\r",
+									"    pm.expect(jsonData.length, 'List length must be 108').to.eql(108);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Рейтинг событий должен учитывать оценки\", function () {\r",
 									"    const target = pm.response.json();\r",
-									"    pm.expect(target[target.length-105].rating).to.equal(2);\r",
+									"    pm.expect(target[target.length-108].rating).to.equal(2);\r",
 									"    pm.expect(target[target.length-1].rating).to.equal(-1);\r",
 									"});"
 								],
@@ -2142,11 +2142,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								},
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -2154,7 +2154,7 @@
 					"response": []
 				},
 				{
-					"name": "Получить 1-е (103) событие с рейтингом 2",
+					"name": "Получить 1-е (106) событие с рейтингом 2",
 					"event": [
 						{
 							"listen": "test",
@@ -2202,11 +2202,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -2214,7 +2214,7 @@
 					"response": []
 				},
 				{
-					"name": "Получить 2-е (104) событие с рейтингом -1",
+					"name": "Получить 2-е (107) событие с рейтингом -1",
 					"event": [
 						{
 							"listen": "test",
@@ -2262,11 +2262,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								},
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
