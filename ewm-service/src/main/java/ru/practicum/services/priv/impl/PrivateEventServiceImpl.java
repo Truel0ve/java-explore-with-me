@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ViewStatsDto;
+import ru.practicum.dto.evaluation.EvaluationDto;
 import ru.practicum.dto.event.EventDto;
 import ru.practicum.dto.event.EventFullDto;
 import ru.practicum.dto.event.EventShortDto;
@@ -15,24 +16,32 @@ import ru.practicum.dto.partrequest.EventRequestStatusUpdateResult;
 import ru.practicum.dto.partrequest.ParticipationRequestDto;
 import ru.practicum.exceptions.ArgumentNotFoundException;
 import ru.practicum.exceptions.ValidationException;
+import ru.practicum.models.evaluations.Evaluation;
+import ru.practicum.models.evaluations.EvaluationId;
 import ru.practicum.models.event.Event;
 import ru.practicum.models.event.EventState;
 import ru.practicum.models.location.Location;
+import ru.practicum.models.partrequest.ParticipationRequest;
 import ru.practicum.models.partrequest.ParticipationRequestStatus;
+import ru.practicum.models.user.User;
 import ru.practicum.repositories.category.CategoryRepository;
+import ru.practicum.repositories.evaluation.EvaluationRepository;
 import ru.practicum.repositories.event.EventRepository;
 import ru.practicum.repositories.location.LocationRepository;
 import ru.practicum.repositories.partrequest.ParticipationRequestRepository;
 import ru.practicum.repositories.user.UserRepository;
 import ru.practicum.services.priv.api.PrivateEventService;
 import ru.practicum.utility.*;
+import ru.practicum.utility.mapper.EvaluationMapper;
 import ru.practicum.utility.mapper.EventMapper;
 import ru.practicum.utility.mapper.ParticipationRequestMapper;
+import ru.practicum.utility.validator.EventInitiatorValidator;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,11 +55,12 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     UserRepository userRepository;
     CategoryRepository categoryRepository;
     LocationRepository locationRepository;
+    EvaluationRepository evaluationRepository;
     StatsManager statsManager;
     EventPatcher eventPatcher;
 
     @Override
-    public List<EventShortDto> getUserEvents(Long userId, Integer from, Integer size) {
+    public List<EventShortDto> getUserEvents(Long userId, Integer from, Integer size, Boolean asc) {
         Set<Long> userEventIds = new HashSet<>();
         List<EventShortDto> events = eventRepository.findEventsByInitiatorId(userId, PageableBuilder.getPageable(from, size))
                 .stream()
@@ -61,9 +71,10 @@ public class PrivateEventServiceImpl implements PrivateEventService {
                 })
                 .collect(Collectors.toList());
         List<ViewStatsDto> viewStatsList = statsManager.getViewStats(userEventIds);
-        return events.stream()
+        List<EventShortDto> unsortedEvent = events.stream()
                 .peek(eventShortDto -> eventShortDto.setViews(statsManager.getViewsCount(eventShortDto.getId(), viewStatsList)))
                 .collect(Collectors.toList());
+        return RateSorter.getSortedEventsShot(unsortedEvent, asc);
     }
 
     @Transactional
@@ -78,7 +89,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     @Override
     public EventFullDto getUserEventById(Long userId, Long eventId) {
         Event event = eventRepository.getEventById(eventId);
-        validateEventInitiator(userId, event);
+        EventInitiatorValidator.validateInitiator(userId, event);
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
         eventFullDto.setConfirmedRequests(
                 requestRepository.countByEventIdAndStatus(eventId, ParticipationRequestStatus.CONFIRMED));
@@ -89,14 +100,14 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     @Transactional
     public EventFullDto patchEventByInitiator(Long userId, Long eventId, UpdateEventRequest updateEventRequest) {
         Event event = eventRepository.getEventById(eventId);
-        validateEventInitiator(userId, event);
+        EventInitiatorValidator.validateInitiator(userId, event);
         validateEventStatus(event);
         return eventPatcher.setAndPatch(updateEventRequest, event, Duration.ofHours(1), false);
     }
 
     @Override
     public List<ParticipationRequestDto> getEventRequests(Long userId, Long eventId) {
-        validateEventInitiator(userId, eventRepository.getEventById(eventId));
+        EventInitiatorValidator.validateInitiator(userId, eventRepository.getEventById(eventId));
         return requestRepository.findAllByEventId(eventId)
                 .stream()
                 .map(ParticipationRequestMapper::toParticipationRequestDto)
@@ -112,11 +123,36 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         return getPatchedRequests(eventId);
     }
 
+    @Transactional
+    @Override
+    public EvaluationDto postEvaluation(Long userId, Long eventId, Boolean isLike) {
+        validateOverLike(userId, eventId);
+        User user = userRepository.getUserById(userId);
+        Event event = eventRepository.getEventById(eventId);
+        EventInitiatorValidator.validateNotInitiator(userId, event);
+        validateUserIsRequester(userId, event);
+        Evaluation evaluation = getNewEvaluation(user, event, isLike);
+        return EvaluationMapper.toEvaluationDto(evaluationRepository.save(evaluation));
+    }
+
+    @Transactional
+    @Override
+    public EvaluationDto putEvaluation(Long userId, Long eventId, Boolean isLike) {
+        evaluationRepository.put(userId, eventId, isLike);
+        return EvaluationMapper.toEvaluationDto(evaluationRepository.getEvaluationByUserIdAndEventId(userId, eventId));
+    }
+
+    @Transactional
+    @Override
+    public void deleteEvaluation(Long userId, Long eventId) {
+        evaluationRepository.deleteByUserIdAndEventId(userId, eventId);
+    }
+
     private void patchRequests(Long userId,
                                Long eventId,
                                EventRequestStatusUpdateRequest updateRequest) {
         Event event = eventRepository.getEventById(eventId);
-        validateEventInitiator(userId, event);
+        EventInitiatorValidator.validateInitiator(userId, event);
         ParticipationRequestStatus newStatus = ParticipationRequestStatus.valueOf(updateRequest.getStatus());
         if (newStatus.equals(ParticipationRequestStatus.REJECTED)) {
             validateConfirmedRequests(updateRequest.getRequestIds());
@@ -184,14 +220,6 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         }
     }
 
-    private void validateEventInitiator(Long userId, Event event) {
-        if (!event.getInitiator().getId().equals(userId)) {
-            throw new ValidationException(
-                    "The user id=" + userId + " is not the initiator of the specified event id=" + event.getId(),
-                    new IllegalArgumentException());
-        }
-    }
-
     private void validateEventStatus(Event event) {
         if (event.getState().equals(EventState.PUBLISHED)) {
             throw new ValidationException(
@@ -209,5 +237,35 @@ public class PrivateEventServiceImpl implements PrivateEventService {
                                     "Unable to change confirmed participation request",
                                     new IllegalArgumentException());
                         });
+    }
+
+    private Evaluation getNewEvaluation(User user, Event event, Boolean isLike) {
+        Evaluation evaluation = new Evaluation();
+        evaluation.setId(new EvaluationId(user.getId(), event.getId()));
+        evaluation.setUser(user);
+        evaluation.setEvent(event);
+        evaluation.setIsLike(isLike);
+        return evaluation;
+    }
+
+    private void validateOverLike(Long userId, Long eventId) {
+        Optional<Evaluation> evaluation = evaluationRepository.findById(new EvaluationId(userId, eventId));
+        if (evaluation.isPresent()) {
+            throw new ValidationException("The user id=" + userId + " has already rated the event id=" + eventId,
+                    new IllegalArgumentException());
+        }
+    }
+
+    private void validateUserIsRequester(Long userId, Event event) {
+        Optional<ParticipationRequest> requestOpt = event.getRequests()
+                .stream()
+                .filter(request -> request.getRequester().getId().equals(userId)
+                        && request.getStatus().equals(ParticipationRequestStatus.CONFIRMED))
+                .findAny();
+        if (requestOpt.isEmpty()) {
+            throw new ValidationException("The specified user id=" + userId +
+                    " is not an event id=" + event.getId() + " participant and cannot rate it",
+                    new IllegalArgumentException());
+        }
     }
 }

@@ -7,7 +7,8 @@ import ru.practicum.dto.event.EventShortDto;
 import ru.practicum.models.event.Event;
 import ru.practicum.models.partrequest.ParticipationRequest;
 import ru.practicum.models.partrequest.ParticipationRequestStatus;
-import ru.practicum.utility.EventDateValidator;
+import ru.practicum.utility.RateCalculator;
+import ru.practicum.utility.validator.EventDateValidator;
 import ru.practicum.utility.DateTimeParser;
 
 import java.time.Duration;
@@ -34,6 +35,7 @@ public class EventMapper {
         eventFullDto.setInitiator(UserMapper.toUserShortDto(event.getInitiator()));
         eventFullDto.setState(event.getState().toString());
         eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(event.getRequests()));
+        eventFullDto.setRating(RateCalculator.calculateEvaluation(event.getEvaluations()));
         return eventFullDto;
     }
 
@@ -47,6 +49,7 @@ public class EventMapper {
         eventShortDto.setPaid(event.getPaid());
         eventShortDto.setConfirmedRequests(getConfirmedRequestsCount(event.getRequests()));
         eventShortDto.setInitiator(UserMapper.toUserShortDto(event.getInitiator()));
+        eventShortDto.setRating(RateCalculator.calculateEvaluation(event.getEvaluations()));
         return eventShortDto;
     }
 
@@ -75,7 +78,7 @@ public class EventMapper {
         return event;
     }
 
-    public Long getConfirmedRequestsCount(Set<ParticipationRequest> requests) {
+    private Long getConfirmedRequestsCount(Set<ParticipationRequest> requests) {
         if (requests == null || requests.isEmpty()) {
             return 0L;
         } else {

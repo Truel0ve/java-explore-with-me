@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface AdminUserService {
 
-    List<UserDto> getUsers(Set<Long> users, Integer from, Integer size);
+    List<UserDto> getUsers(Set<Long> users, Integer from, Integer size, Boolean rate);
 
     UserDto postNewUser(UserDto user);
 

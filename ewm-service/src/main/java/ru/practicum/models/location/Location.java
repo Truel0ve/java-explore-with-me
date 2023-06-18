@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "location_id")
     Long id;
 
     @Column(name = "lat")
@@ -24,4 +24,13 @@ public class Location {
 
     @Column(name = "lon")
     BigDecimal lon;
+
+    public Location() {
+
+    }
+
+    public Location(BigDecimal lat, BigDecimal lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
 }

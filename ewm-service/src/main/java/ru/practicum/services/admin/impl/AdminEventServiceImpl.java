@@ -15,6 +15,7 @@ import ru.practicum.repositories.event.EventRepository;
 import ru.practicum.services.admin.api.AdminEventService;
 import ru.practicum.utility.*;
 import ru.practicum.utility.mapper.EventMapper;
+import ru.practicum.utility.validator.EventEnumValidator;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -38,17 +39,19 @@ public class AdminEventServiceImpl implements AdminEventService {
                                                   String rangeStart,
                                                   String rangeEnd,
                                                   Integer from,
-                                                  Integer size) {
+                                                  Integer size,
+                                                  Boolean asc) {
         List<Event> events = getEventList(users, states, categories, rangeStart, rangeEnd, from, size);
         Set<Long> eventIds = events.stream().map(Event::getId).collect(Collectors.toSet());
         List<ViewStatsDto> viewStatsList = statsManager.getViewStats(eventIds);
-        return events.stream()
+        List<EventFullDto> eventFullDtoList = events.stream()
                 .map(event -> {
                     EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
                     eventFullDto.setViews(statsManager.getViewsCount(eventFullDto.getId(), viewStatsList));
                     return eventFullDto;
                 })
                 .collect(Collectors.toList());
+        return RateSorter.getSortedEventsFull(eventFullDtoList, asc);
     }
 
     @Transactional

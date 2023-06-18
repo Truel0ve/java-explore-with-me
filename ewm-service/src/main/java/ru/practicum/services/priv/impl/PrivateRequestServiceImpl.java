@@ -19,6 +19,7 @@ import ru.practicum.repositories.partrequest.ParticipationRequestRepository;
 import ru.practicum.repositories.user.UserRepository;
 import ru.practicum.services.priv.api.PrivateRequestService;
 import ru.practicum.utility.mapper.ParticipationRequestMapper;
+import ru.practicum.utility.validator.EventInitiatorValidator;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
     public ParticipationRequestDto postNewRequestForEvent(Long userId, Long eventId) {
         User user = userRepository.getUserById(userId);
         Event event = eventRepository.getEventById(eventId);
-        validateUserIsNotInitiator(userId, event);
+        EventInitiatorValidator.validateNotInitiator(userId, event);
         validateRepeatedRequest(userId, event);
         validateEventIsPublished(event);
         validateParticipantLimit(event);
@@ -69,14 +70,6 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
             requestRepository.cancel(requestId, userId);
         }
         return ParticipationRequestMapper.toParticipationRequestDto(requestRepository.getReferenceById(requestId));
-    }
-
-    private void validateUserIsNotInitiator(Long userId, Event event) {
-        if (event.getInitiator().getId().equals(userId)) {
-            throw new ValidationException("The specified user id=" + userId +
-                    " is the initiator of the event id=" + event.getId(),
-                    new IllegalArgumentException());
-        }
     }
 
     private void validateRepeatedRequest(Long userId, Event event) {

@@ -1,4 +1,4 @@
-package ru.practicum.utility;
+package ru.practicum.utility.validator;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.EnumUtils;

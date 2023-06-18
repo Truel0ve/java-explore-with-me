@@ -16,7 +16,7 @@ import ru.practicum.models.event.Event;
 import ru.practicum.models.event.EventSort;
 import ru.practicum.repositories.event.EventRepository;
 import ru.practicum.services.pub.api.PublicEventService;
-import ru.practicum.utility.EventEnumValidator;
+import ru.practicum.utility.validator.EventEnumValidator;
 import ru.practicum.utility.PageableBuilder;
 import ru.practicum.utility.StatsManager;
 import ru.practicum.utility.DateTimeParser;

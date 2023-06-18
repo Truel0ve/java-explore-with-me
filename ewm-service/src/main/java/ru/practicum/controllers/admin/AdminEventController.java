@@ -33,8 +33,9 @@ public class AdminEventController {
                                         @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$")
                                         @RequestParam(required = false) String rangeEnd,
                                         @RequestParam(defaultValue = "0", required = false) @PositiveOrZero Integer from,
-                                        @RequestParam(defaultValue = "10", required = false) @Positive Integer size) {
-        return adminEventService.getEventFullDtoList(users, states, categories,rangeStart, rangeEnd, from, size);
+                                        @RequestParam(defaultValue = "10", required = false) @Positive Integer size,
+                                        @RequestParam(required = false) Boolean asc) {
+        return adminEventService.getEventFullDtoList(users, states, categories,rangeStart, rangeEnd, from, size, asc);
     }
 
     @PatchMapping(value = "/{eventId}")

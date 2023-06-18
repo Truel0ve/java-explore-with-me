@@ -1,7 +1,8 @@
-package ru.practicum.utility;
+package ru.practicum.utility.validator;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.exceptions.WrongStateArgumentException;
+import ru.practicum.utility.DateTimeParser;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

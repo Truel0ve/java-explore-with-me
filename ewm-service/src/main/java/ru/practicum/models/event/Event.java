@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import ru.practicum.models.compilation.Compilation;
+import ru.practicum.models.evaluations.Evaluation;
 import ru.practicum.models.location.Location;
 import ru.practicum.models.category.Category;
 import ru.practicum.models.partrequest.ParticipationRequest;
@@ -27,7 +28,7 @@ public class Event {
     @Column(name = "event_id")
     Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "initiator", nullable = false)
     User initiator;
 
@@ -39,7 +40,7 @@ public class Event {
     @Column(name = "annotation")
     String annotation;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category", nullable = false)
     Category category;
 
@@ -59,7 +60,7 @@ public class Event {
     LocalDateTime publishedOn;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location")
     Location location;
 
@@ -75,15 +76,23 @@ public class Event {
     @Column(name = "request_moderation", columnDefinition = "boolean default true")
     Boolean requestModeration;
 
-    @OneToMany(targetEntity = ParticipationRequest.class,
-            mappedBy = "event",
-            cascade = CascadeType.ALL)
-    Set<ParticipationRequest> requests = new HashSet<>();
-
-    @ManyToMany(targetEntity = Compilation.class,
-            mappedBy = "events")
-    Set<Compilation> compilations = new HashSet<>();
-
     @Enumerated(EnumType.STRING)
     EventState state;
+
+    @OneToMany(targetEntity = ParticipationRequest.class,
+            mappedBy = "event",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    Set<ParticipationRequest> requests = new HashSet<>();
+
+    @OneToMany(targetEntity = Evaluation.class,
+            mappedBy = "event",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    Set<Evaluation> evaluations = new HashSet<>();
+
+    @ManyToMany(targetEntity = Compilation.class,
+            mappedBy = "events",
+            fetch = FetchType.LAZY)
+    Set<Compilation> compilations = new HashSet<>();
 }

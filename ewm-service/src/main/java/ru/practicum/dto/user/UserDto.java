@@ -20,4 +20,6 @@ public class UserDto {
     @Email
     @Size(min = 6, max = 254)
     String email;
+
+    Long rating = 0L;
 }
