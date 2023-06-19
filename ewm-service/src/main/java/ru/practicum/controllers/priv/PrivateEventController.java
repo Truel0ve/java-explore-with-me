@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.dto.evaluation.EvaluationDto;
 import ru.practicum.dto.event.*;
 import ru.practicum.dto.partrequest.EventRequestStatusUpdateRequest;
 import ru.practicum.dto.partrequest.EventRequestStatusUpdateResult;
@@ -26,9 +27,10 @@ public class PrivateEventController {
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<EventShortDto> getUserEvents(@Positive @NotNull @PathVariable Long userId,
-                                             @PositiveOrZero @RequestParam(defaultValue = "0", required = false) Integer from,
-                                             @Positive @RequestParam(defaultValue = "10", required = false) Integer size) {
-        return privateEventService.getUserEvents(userId, from, size);
+                                             @PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
+                                             @Positive @RequestParam(defaultValue = "10") Integer size,
+                                             @RequestParam(required = false) Boolean asc) {
+        return privateEventService.getUserEvents(userId, from, size, asc);
     }
 
     @PostMapping
@@ -66,5 +68,28 @@ public class PrivateEventController {
                                                              @Positive @NotNull @PathVariable Long eventId,
                                                              @RequestBody EventRequestStatusUpdateRequest updateRequest) {
         return privateEventService.patchEventRequests(userId, eventId, updateRequest);
+    }
+
+    @PostMapping(value = "/{eventId}/evaluation")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public EvaluationDto postEvaluation(@Positive @NotNull @PathVariable Long userId,
+                                        @Positive @NotNull @PathVariable Long eventId,
+                                        @RequestParam(defaultValue = "true") Boolean isLike) {
+        return privateEventService.postEvaluation(userId, eventId, isLike);
+    }
+
+    @PutMapping(value = "/{eventId}/evaluation")
+    @ResponseStatus(value = HttpStatus.OK)
+    public EvaluationDto putEvaluation(@Positive @NotNull @PathVariable Long userId,
+                              @Positive @NotNull @PathVariable Long eventId,
+                              @RequestParam @NotNull Boolean isLike) {
+        return privateEventService.putEvaluation(userId, eventId, isLike);
+    }
+
+    @DeleteMapping(value = "/{eventId}/evaluation")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteEvaluation(@Positive @NotNull @PathVariable Long userId,
+                                 @Positive @NotNull @PathVariable Long eventId) {
+        privateEventService.deleteEvaluation(userId, eventId);
     }
 }

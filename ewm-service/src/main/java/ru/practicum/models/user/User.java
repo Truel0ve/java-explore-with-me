@@ -4,9 +4,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import ru.practicum.models.evaluations.Evaluation;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "public")
@@ -16,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "user_id")
     Long id;
 
     @NotNull
@@ -26,4 +29,10 @@ public class User {
     @NotNull
     @Column(name = "email")
     String email;
+
+    @OneToMany(targetEntity = Evaluation.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    Set<Evaluation> evaluations = new HashSet<>();
 }

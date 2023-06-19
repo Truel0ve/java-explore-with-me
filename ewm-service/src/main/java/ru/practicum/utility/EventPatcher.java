@@ -8,10 +8,15 @@ import ru.practicum.ViewStatsDto;
 import ru.practicum.dto.event.EventFullDto;
 import ru.practicum.dto.event.UpdateEventRequest;
 import ru.practicum.models.event.Event;
+import ru.practicum.models.location.Location;
 import ru.practicum.repositories.category.CategoryRepository;
 import ru.practicum.repositories.event.EventRepository;
+import ru.practicum.repositories.location.LocationRepository;
 import ru.practicum.utility.mapper.EventMapper;
+import ru.practicum.utility.validator.EventDateValidator;
+import ru.practicum.utility.validator.EventEnumValidator;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +27,7 @@ import java.util.Set;
 public class EventPatcher {
     EventRepository eventRepository;
     CategoryRepository categoryRepository;
+    LocationRepository locationRepository;
     StatsManager statsManager;
 
     public EventFullDto setAndPatch(UpdateEventRequest updateEventRequest, Event event, Duration duration, boolean isAdmin) {
@@ -46,6 +52,7 @@ public class EventPatcher {
         return eventFullDto;
     }
 
+    @SuppressWarnings("all")
     private Event setEventFields(UpdateEventRequest updateEventRequest, Event event, Duration duration, boolean isAdmin) {
         if (updateEventRequest.getTitle() != null && !updateEventRequest.getTitle().isBlank()) {
             event.setTitle(updateEventRequest.getTitle());
@@ -64,7 +71,9 @@ public class EventPatcher {
                     updateEventRequest.getEventDate(), duration));
         }
         if (updateEventRequest.getLocation() != null) {
-            event.setLocation(updateEventRequest.getLocation());
+            BigDecimal lat = updateEventRequest.getLocation().getLat();
+            BigDecimal lon = updateEventRequest.getLocation().getLon();
+            event.setLocation(locationRepository.save(new Location(lat, lon)));
         }
         if (updateEventRequest.getPaid() != null) {
             event.setPaid(updateEventRequest.getPaid());

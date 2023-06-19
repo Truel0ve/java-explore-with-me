@@ -21,8 +21,8 @@ public class PublicCategoryController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public List<CategoryDto> getCategories(@RequestParam(defaultValue = "0", required = false) @PositiveOrZero Integer from,
-                                           @RequestParam(defaultValue = "10", required = false) @Positive Integer size) {
+    public List<CategoryDto> getCategories(@RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
+                                           @RequestParam(defaultValue = "10") @Positive Integer size) {
         return publicCategoryService.getCategories(from, size);
     }
 

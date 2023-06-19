@@ -1,13 +1,15 @@
 package ru.practicum.dto.event;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import ru.practicum.dto.category.CategoryDto;
 import ru.practicum.dto.user.UserShortDto;
 import ru.practicum.models.location.Location;
 
-@Data
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventFullDto {
     Long id;
@@ -26,4 +28,5 @@ public class EventFullDto {
     String state;
     Long confirmedRequests;
     Long views;
+    Long rating;
 }
