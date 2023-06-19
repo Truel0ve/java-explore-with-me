@@ -24,8 +24,8 @@ public class AdminUserController {
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<UserDto> getUsers(@RequestParam(required = false) Set<Long> ids,
-                                  @RequestParam(defaultValue = "0", required = false) @PositiveOrZero  Integer from,
-                                  @RequestParam(defaultValue = "10", required = false) @Positive Integer size,
+                                  @RequestParam(defaultValue = "0") @PositiveOrZero  Integer from,
+                                  @RequestParam(defaultValue = "10") @Positive Integer size,
                                   @RequestParam(required = false) Boolean asc) {
         return adminUserService.getUsers(ids, from, size, asc);
     }

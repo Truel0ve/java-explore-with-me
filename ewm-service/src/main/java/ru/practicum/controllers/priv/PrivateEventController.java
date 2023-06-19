@@ -27,8 +27,8 @@ public class PrivateEventController {
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<EventShortDto> getUserEvents(@Positive @NotNull @PathVariable Long userId,
-                                             @PositiveOrZero @RequestParam(defaultValue = "0", required = false) Integer from,
-                                             @Positive @RequestParam(defaultValue = "10", required = false) Integer size,
+                                             @PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
+                                             @Positive @RequestParam(defaultValue = "10") Integer size,
                                              @RequestParam(required = false) Boolean asc) {
         return privateEventService.getUserEvents(userId, from, size, asc);
     }

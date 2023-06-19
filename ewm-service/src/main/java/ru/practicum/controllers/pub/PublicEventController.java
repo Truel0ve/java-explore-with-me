@@ -34,10 +34,10 @@ public class PublicEventController {
                                          @RequestParam(required = false)
                                          @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$")
                                          String rangeEnd,
-                                         @RequestParam(defaultValue = "false", required = false) Boolean onlyAvailable,
-                                         @RequestParam(defaultValue = "EVENT_DATE", required = false) String sort,
-                                         @RequestParam(defaultValue = "0", required = false) @PositiveOrZero Integer from,
-                                         @RequestParam(defaultValue = "10", required = false) @Positive Integer size,
+                                         @RequestParam(defaultValue = "false") Boolean onlyAvailable,
+                                         @RequestParam(defaultValue = "EVENT_DATE") String sort,
+                                         @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
+                                         @RequestParam(defaultValue = "10") @Positive Integer size,
                                          HttpServletRequest request) {
         List<EventShortDto> events = publicEventService.getEvents(text, categories, paid, rangeStart, rangeEnd,
                 onlyAvailable, sort, from, size);
